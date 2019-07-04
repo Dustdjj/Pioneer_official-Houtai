@@ -1,0 +1,21 @@
+spring:
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+      url: jdbc:mysql://localhost:3306/pioneer_official?useSSL=false&serverTimezone=Asia/Shanghai
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.dust.domain
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+com:
+  sxito:
+    custom:
+      windows-path: d://newsImg/
+      linux-path: /newsImg/
+      windows-backupPath: d://tecImg/
+      linux-backupPath: /tecImg/
+      windows-productpath: d://sxito/productImg/
+      linux-productpath: /sxito/productImg/
+      keys: fourzeroeight

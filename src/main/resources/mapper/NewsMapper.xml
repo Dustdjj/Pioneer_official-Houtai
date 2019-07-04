@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dust.mapper.NewsMapper">
+
+    <resultMap id="NewsMap" type="cn.dust.domain.News">
+        <id column="news_id" property="newsId"></id>
+        <result column="news_title" property="newsTitle"></result>
+        <result column="news_time" property="newsTime"></result>
+        <result column="news_content" property="newsContent"></result>
+        <result column="news_clicks" property="newsClicks"></result>
+        <result column="news_img" property="newsImg"></result>
+    </resultMap>
+
+    <insert id="insertNews" parameterType="cn.dust.domain.News">
+        INSERT INTO news(news_title,news_content,news_clicks,news_img)VALUES (#{newsTitle},#{newsContent},#{newsClicks},#{newsImg})
+    </insert>
+
+    <update id="updateNews" parameterType="cn.dust.domain.News">
+        UPDATE `news` set news_title = #{newsTitle},news_time = #{newsTime},news_content=#{newsContent},news_clicks=#{newsClicks},news_img=#{newsImg} WHERE news_id = #{newsId}
+    </update>
+
+    <update id="updateNewsClicksById" parameterType="int">
+        UPDATE `news` set news_clicks=news_clicks+1  WHERE news_id = #{newsId}
+    </update>
+
+    <delete id="deleteNewsById">
+        delete from news where news_id = #{newsId}
+    </delete>
+
+    <delete id="deleteNewsByName">
+        delete from news where news_title = #{newsTitle}
+    </delete>
+
+    <select id="getNewsByName" parameterType="String" resultMap="NewsMap">
+        SELECT * FROM news WHERE news_title like "%${newsTitle}%"
+    </select>
+
+    <select id="getNewsById" parameterType="int" resultMap="NewsMap">
+        SELECT * FROM news WHERE news_id=#{newsId}
+    </select>
+
+    <select id="selectAllNews"  resultMap="NewsMap">
+        SELECT * FROM news
+    </select>
+
+
+
+</mapper>

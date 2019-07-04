@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dust.mapper.TecMapper">
+
+    <resultMap id="TecMap" type="cn.dust.domain.Technology">
+        <id column="tec_id" property="tecId"></id>
+        <result column="tec_title" property="tecTitle"></result>
+        <result column="tec_time" property="tecTime"></result>
+        <result column="tec_content" property="tecContent"></result>
+        <result column="tec_clicks" property="tecClicks"></result>
+        <result column="tec_img" property="tecImg"></result>
+    </resultMap>
+
+    <insert id="insertTec" parameterType="cn.dust.domain.Technology">
+        INSERT INTO technology(tec_title,tec_content,tec_clicks,tec_img)VALUES (#{tecTitle},#{tecContent},#{tecClicks},#{tecImg})
+    </insert>
+
+    <update id="updateTec" parameterType="cn.dust.domain.Technology">
+        UPDATE `technology` set tec_title = #{tecTitle},tec_time = #{tecTime},tec_content=#{tecContent},tec_clicks=#{tecClicks},tec_img=#{tecImg} WHERE tec_id = #{tecId}
+    </update>
+
+    <update id="updateTecClicksById" parameterType="int">
+        UPDATE `technology` set tec_clicks=tec_clicks+1  WHERE tec_id = #{tecId}
+    </update>
+
+    <delete id="deleteTecById">
+        delete from technology where tec_id = #{tecId}
+    </delete>
+
+    <delete id="deleteTecByName">
+        delete from technology where tec_title = #{tecTitle}
+    </delete>
+
+    <select id="getTecByName" parameterType="String" resultMap="TecMap">
+        SELECT * FROM technology WHERE tec_title like "%${tecTitle}%"
+    </select>
+
+    <select id="getTecById" parameterType="int" resultMap="TecMap">
+        SELECT * FROM technology WHERE tec_id=#{tecId}
+    </select>
+
+    <select id="selectAllNews" resultMap="TecMap">
+        SELECT * FROM technology
+    </select>
+
+
+
+</mapper>

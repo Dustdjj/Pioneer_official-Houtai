@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dust.mapper.ProductMapper">
+
+    <resultMap id="ProductMap" type="cn.dust.domain.Product">
+        <id column="product_id" property="productId"></id>
+        <result column="product_name" property="productName"></result>
+        <result column="product_description" property="productDescription"></result>
+        <result column="product_img" property="productImg"></result>
+    </resultMap>
+
+    <insert id="insertProduct" parameterType="cn.dust.domain.Product">
+        INSERT INTO product(product_name,product_description,product_img)VALUES (#{productName},#{productDescription},#{productImg})
+    </insert>
+
+    <update id="updateProduct" parameterType="cn.dust.domain.Product">
+        UPDATE `product` set product_name = #{productName},product_description = #{productDescription},product_img=#{productImg}WHERE product_id = #{productId}
+    </update>
+
+    <delete id="deleteProductById">
+        delete from product where product_id = #{productId}
+    </delete>
+
+    <delete id="deleteProductByName">
+        delete from product where product_name = #{productName}
+    </delete>
+
+    <select id="getProductByName" parameterType="String" resultMap="ProductMap">
+        SELECT * FROM product where product_name like "%${productName}%"
+    </select>
+
+    <select id="getAllProducts" resultMap="ProductMap">
+        SELECT * FROM product
+    </select>
+
+    <select id="getProductById" parameterType="int" resultMap="ProductMap">
+        SELECT * FROM product WHERE product_id=#{productId}
+    </select>
+
+
+</mapper>
